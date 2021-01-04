@@ -41,6 +41,8 @@ Route::group(['middleware' => ['auth']], function () {
     
     //Orders Routea
     Route::resource('orders', 'App\Http\Controllers\OrdersController')->except('destroy', 'update');
+
+
     Route::post('/orders/update/{id}', 'App\Http\Controllers\OrdersController@update')->name('orders.update');
     Route::get('/orders/destroy/{id}', 'App\Http\Controllers\OrdersController@destroy')->name('orders.destroy');
     Route::get('/order_table', 'App\Http\Controllers\OrdersController@tableOrder');
@@ -70,3 +72,5 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::get('table_dashboard_price_monthly', 'App\Http\Controllers\DashboardController@MonthlyDashboardPrice')->name('table_price');
     // Route::get('table_dashboard_price_yearly', 'App\Http\Controllers\DashboardController@YearlyDashboardPrice')->name('table_price');
 });
+    
+     Route::get('/ordersend', 'App\Http\Controllers\OrdersController@ordersend')->name('orders.send');

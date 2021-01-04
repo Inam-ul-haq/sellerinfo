@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Datatables;
 
 
 class OrdersController extends Controller
@@ -20,10 +21,10 @@ class OrdersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    // public function __construct()
+    // {
+    //     parent::__construct();
+    // }
 
     public function index()
     {
@@ -70,7 +71,35 @@ class OrdersController extends Controller
         $order = Order::create($request->all() + ['user_id' => Auth::user()->id]);
         return redirect()->route('orders.index', $order);
     }
+    public function ordersend(Request $request)
+    {
+       
+        /*$order = DB::table('orders')->select('user_id')->where('same','=',$request->se);
+        dd($order);*/
+         $order = new order();
 
+                $order->amzid = $request->aid;
+                $order->samid = $request->sid;
+                $order->quantity = $request->qu;
+                $order->samq = $request->sq;
+                $order->samp = $request->sp;
+                $order->same = $request->se;
+                $order->pname = $request->pn;
+                $order->user_id = '2';
+                $order->save();
+        /*dd(json_encode($order));
+        return Datatables::of($order)->make(true);
+        return view('orders.index')->with('order', json_encode($order));*/
+        if ($order)
+        {
+            echo "ok";
+        }
+        else
+        {
+            echo "Invaild record . Data not save in the database";
+        }
+
+    }
     /**
      * Display the specified resource.
      *
@@ -79,8 +108,9 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
-        //
-        return view('orders.index', compact('order', $order));
+        
+         return view('orders.index', compact('order', $order));
+          // return Datatables::of($order)->make(true);
     }
 
     /**
@@ -139,3 +169,7 @@ class OrdersController extends Controller
         return redirect()->route('orders.index');
     }
 }
+
+
+
+         
