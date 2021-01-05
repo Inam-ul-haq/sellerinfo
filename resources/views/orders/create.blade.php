@@ -69,7 +69,7 @@
                     <div class="form-group form-group-last row">
                         <div class="col-lg-6 form-group-sub">
                             <label class="form-control-label">Enter Sam Price</label>
-                            <input type="float" class="form-control" name="samp" required value="">
+                            <input type="text" class="form-control" name="samp" required value="">
                         </div>
                     </div>
                     <div class="form-group form-group-last row">
