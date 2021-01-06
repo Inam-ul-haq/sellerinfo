@@ -11,7 +11,8 @@ use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Datatables;
-
+use Response;
+use Spatie\Permission\Models\Role;
 
 class OrdersController extends Controller
 {
@@ -73,7 +74,8 @@ class OrdersController extends Controller
     }
     public function ordersend(Request $request)
     { 
-        
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Methods: GET, OPTIONS");
         $order = DB::table('users')->select('id')->where('email','=',$request->useremail)->first();
         $user_id = $order->id;
       
@@ -167,6 +169,26 @@ class OrdersController extends Controller
         $request->session()->flash('message', 'Order deleted Successfully!');
         return redirect()->route('orders.index');
     }
+
+
+        public function orderexit(Request $request){
+         
+                header('Access-Control-Allow-Origin: *');
+                header("Access-Control-Allow-Methods: GET, OPTIONS");
+               $result =   DB::table('orders')->select('note')->where('amzid', $request->id )->first();
+              
+              
+                if($result != false){
+                  
+                      $status = '1';
+                     return Response::json(array($status,$result->note));
+                      // return Response::json_encode(array($array,$array1));
+                }else{
+                         $status = '0';
+                     return Response::json(array($status));
+                }
+        }
+
 }
 
 

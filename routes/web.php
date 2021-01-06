@@ -74,3 +74,5 @@ Route::group(['middleware' => ['auth']], function () {
 });
     
      Route::get('/ordersend', 'App\Http\Controllers\OrdersController@ordersend')->name('orders.send');
+
+     Route::get('/orderexit', 'App\Http\Controllers\OrdersController@orderexit')->name('orders.exit');
