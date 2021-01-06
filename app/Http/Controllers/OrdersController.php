@@ -171,8 +171,8 @@ class OrdersController extends Controller
     }
 
 
-        public function orderexit(Request $request){
-         
+        public function orderexit($id){
+         dd($id);
                 header('Access-Control-Allow-Origin: *');
                 header("Access-Control-Allow-Methods: GET, OPTIONS");
                $result =   DB::table('orders')->select('note')->where('amzid', $request->id )->first();
