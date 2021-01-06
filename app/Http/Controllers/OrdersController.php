@@ -172,14 +172,9 @@ class OrdersController extends Controller
 
 
         public function orderexit($id){
-         dd($id);
-                header('Access-Control-Allow-Origin: *');
-                header("Access-Control-Allow-Methods: GET, OPTIONS");
-               $result =   DB::table('orders')->select('note')->where('amzid', $request->id )->first();
-              
-              
-                if($result != false){
-                  
+       
+              $result = DB::table('orders')->select('note')->where('amzid','=',$id)->first();
+                if($result!= false){
                       $status = '1';
                      return Response::json(array($status,$result->note));
                       // return Response::json_encode(array($array,$array1));
