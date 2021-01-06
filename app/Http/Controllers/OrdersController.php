@@ -63,33 +63,32 @@ class OrdersController extends Controller
             'samid' => 'required',
             'quantity' => 'required',
             'samq' => 'required',
-            'samp' => 'required',
+            // 'samp' => 'required',
             'same' => 'required',
             'pname' => 'required',
         ]);
 
-        $order = Order::create($request->all() + ['user_id' => Auth::user()->id]);
+        $order = Order::create(['samp'=>preg_replace('/[^0-9-.]+/', '', $request->samp)] + ['user_id' => Auth::user()->id]+$request->all());
         return redirect()->route('orders.index', $order);
     }
     public function ordersend(Request $request)
-    {
-       
-        /*$order = DB::table('orders')->select('user_id')->where('same','=',$request->se);
-        dd($order);*/
-         $order = new order();
+    { 
+        
+        $order = DB::table('users')->select('id')->where('email','=',$request->useremail)->first();
+        $user_id = $order->id;
+      
+              $order = new order();
 
                 $order->amzid = $request->aid;
                 $order->samid = $request->sid;
                 $order->quantity = $request->qu;
                 $order->samq = $request->sq;
-                $order->samp = $request->sp;
+                $order->samp = preg_replace('/[^0-9-.]+/', '', $request->sp);
                 $order->same = $request->se;
                 $order->pname = $request->pn;
-                $order->user_id = '2';
+                $order->user_id = $user_id;
                 $order->save();
-        /*dd(json_encode($order));
-        return Datatables::of($order)->make(true);
-        return view('orders.index')->with('order', json_encode($order));*/
+
         if ($order)
         {
             echo "ok";
