@@ -176,20 +176,6 @@ class OrdersController extends Controller
             header('Access-Control-Allow-Origin: *');
             header("Access-Control-Allow-Methods: GET, OPTIONS");
 
-              $result = DB::table('orders')->select('note')->where('amzid','=',$id)->first();
-                if($result!= false){
-                      $status = '1';
-                          $response = Response::json(array(['status'=> 1,'note'=>$result->note]));
-                        $response->header('Content-Type', 'application/json');
-                        return $response;
-                      // return Response::json_encode(array($array,$array1));
-                }else{
-                         // $status = '0';
-                  
-                     $response = Response::json(['status'=> 0]);
-                     $response->header('Content-Type', 'application/json');
-                    return $response;
-                }
         }
 
 }
